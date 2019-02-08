@@ -22,7 +22,7 @@ public class ForceLoginFilter extends AbstractConfigFilter {
     @Override
     protected void internalFilter(final HttpServletRequest request, final HttpServletResponse response,
             final FilterChain chain) {
-
+    	System.out.println("ForceLoginFilter :: internalFilter");
         final JEEContext context = new JEEContext(request, response);
         final Client client = ConfigSingleton.getConfig().getClients().findClient(request.getParameter(Pac4jConstants.DEFAULT_CLIENT_NAME_PARAMETER));
         HttpAction action;

@@ -55,6 +55,7 @@ public class FormView {
 
 
     public String getCallbackUrl() {
+    	System.out.println("form view get call back URL::::");
         final String callbackUrl = ((IndirectClient) config.getClients().findClient("FormClient")).getCallbackUrl();
         logger.info("Computed callbackUrl: {}", callbackUrl);
         return callbackUrl;
@@ -62,6 +63,7 @@ public class FormView {
 
 
     public String authenticate() {
+    	System.out.println("authenticate::::");
         logger.debug("authenticating username/password: {}/[PROTECTED]", username);
         String outcome = null;
         if (!username.equals(password)) {

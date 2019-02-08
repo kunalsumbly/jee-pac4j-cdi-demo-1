@@ -39,6 +39,7 @@ public class LogoutAction {
      * @return the outcome of the logout action for use by JSF navigation
      */
     public String logout() {
+    	System.out.println("LogoutAction LOGOUT :::");
         logger.debug("performing local logout via profile manager.");
         profileManager.logout();
         return "/?faces-redirect=true";

@@ -28,6 +28,7 @@ public class JwtView {
     private ProfileManager profileManager;
 
     public String generate() {
+    	System.out.println("JwtView GENERATE :::");
         final Optional<CommonProfile> profile = profileManager.get(true);
         final JwtGenerator generator = new JwtGenerator(new SecretSignatureConfiguration(SecurityConfig.JWT_SALT));
         String token = "";

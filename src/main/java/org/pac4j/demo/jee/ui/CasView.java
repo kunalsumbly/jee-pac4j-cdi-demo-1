@@ -26,6 +26,7 @@ public class CasView {
     private ProfileManager profileManager;
 
     public String getProxyTicket() {
+    	System.out.println("getProxyTicket::::");
         final Optional<CommonProfile> optProfile = profileManager.get(true);
         String pt = null;
         if (optProfile.isPresent()) {

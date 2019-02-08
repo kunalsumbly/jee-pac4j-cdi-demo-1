@@ -43,6 +43,7 @@ public class ProfileView {
      * @return a list of pac4j profiles
      */
     public Object getProfile() {
+    	System.out.println("ProfileView getProfile :::");
         return profileManager.get(true).orElse(null); // It's fine to return a null reference if there is no value present.
     }
 
@@ -52,12 +53,14 @@ public class ProfileView {
      * @return a list of pac4j profiles
      */
     public List getProfiles() {
+    	System.out.println("ProfileView getProfiles :::");
         return profileManager.getAll(true);
     }
 
     /** Simply prints some debugging information post-construction. */
     @PostConstruct
     public void init() {
+    	System.out.println("ProfileView INIT :::");
         logger.debug("webContext is null? {}", (webContext == null));
         logger.debug("profileManager is null? {}", (profileManager == null));
     }
