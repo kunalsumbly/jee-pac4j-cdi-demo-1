@@ -52,22 +52,23 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.8.1</version>
 		</dependency>
+		<!--  This is needed for jee filters  -->
 		<dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>jee-pac4j</artifactId>
 			<version>${dependency.jee-pac4j.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-oauth</artifactId>
 			<version>${dependency.pac4j.version}</version>
-		</dependency>
-		<dependency>
+		</dependency-->
+		<!--dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-openid</artifactId>
 			<version>${dependency.pac4j.version}</version>
 		</dependency>
-		<dependency>
+		 dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-cas</artifactId>
 			<version>${dependency.pac4j.version}</version>
@@ -76,18 +77,20 @@
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-gae</artifactId>
 			<version>${dependency.pac4j.version}</version>
-		</dependency>
+		</dependency> -->
+		<!-- This is needed for OIDC clients -->
 		<dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-oidc</artifactId>
 			<version>${dependency.pac4j.version}</version>
 		</dependency>
+		<!--  dealing with http sessions and cookies -->
 		<dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-http</artifactId>
 			<version>${dependency.pac4j.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-ldap</artifactId>
 			<version>${dependency.pac4j.version}</version>
@@ -101,7 +104,7 @@
 			<groupId>org.pac4j</groupId>
 			<artifactId>pac4j-sql</artifactId>
 			<version>${dependency.pac4j.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- dependency> <groupId>org.pac4j</groupId> <artifactId>pac4j-mongo</artifactId> 
 			<version>${dependency.pac4j.version}</version> </dependency> <dependency> 
 			<groupId>org.pac4j</groupId> <artifactId>pac4j-kerberos</artifactId> <version>${dependency.pac4j.version}</version> 
@@ -110,6 +113,7 @@
 			<groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> 
 			<version>${dependency.logback.version}</version> </dependency -->
 
+	<!--  javaee-api should be provided by the runtime -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>

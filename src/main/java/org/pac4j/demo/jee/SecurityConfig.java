@@ -9,9 +9,17 @@ import org.pac4j.core.authorization.authorizer.IsAuthenticatedAuthorizer;
 import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
+import org.pac4j.core.context.WebContext;
+import org.pac4j.core.exception.http.FoundAction;
+import org.pac4j.core.exception.http.RedirectionAction;
+import org.pac4j.core.logout.LogoutActionBuilder;
 import org.pac4j.core.matching.PathMatcher;
-import org.pac4j.oidc.client.GoogleOidcClient;
+import org.pac4j.core.profile.UserProfile;
+import org.pac4j.oidc.client.CustomOidcClient;
+import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
+import org.pac4j.oidc.profile.OidcProfileDefinition;
+import org.pac4j.oidc.profile.creator.OidcProfileCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,64 +47,21 @@ public class SecurityConfig {
         System.out.println("building Security configuration...");
         // Google OIDC configuration/client
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("167480702619-8e1lo80dnu8bpk3k0lvvj27noin97vu9.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("MhMme_Ik6IH2JMnAT6MFIfee");
-        //oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
+        //oidcConfiguration.setClientId("167480702619-8e1lo80dnu8bpk3k0lvvj27noin97vu9.apps.googleusercontent.com");
+        //oidcConfiguration.setSecret("MhMme_Ik6IH2JMnAT6MFIfee");
+        oidcConfiguration.setClientId("980910461423-qvogk679mh5mm86teo4chjk8rqurut53.apps.googleusercontent.com");
+        oidcConfiguration.setSecret("hPMqqMVbjhU5G8jsDWPKcGSH");
+        
         oidcConfiguration.setUseNonce(true);
+        
+        
         //oidcClient.setPreferredJwsAlgorithm(JWSAlgorithm.RS256);
         oidcConfiguration.addCustomParam("prompt", "consent");
-        final GoogleOidcClient oidcClient = new GoogleOidcClient(oidcConfiguration);
-       // final OidcClient oidcClient = new OidcClient(oidcConfiguration);
-       // oidcClient.setAuthorizationGenerator((ctx, profile) -> { profile.addRole("ROLE_ADMIN"); return profile; });
-
-		/*
-		 * final FormClient formClient = new FormClient(
-		 * "http://localhost:8080/jee-pac4j-cdi-demo/loginForm.action", new
-		 * SimpleTestUsernamePasswordAuthenticator() );
-		 * 
-		 * final FormClient jsfFormClient = new FormClient(
-		 * "http://localhost:8080/jee-pac4j-cdi-demo/jsfLoginForm.action", new
-		 * SimpleTestUsernamePasswordAuthenticator() );
-		 * jsfFormClient.setName("jsfFormClient");
-		 */
-
-        /*final SAML2Configuration cfg = new SAML2Configuration("resource:samlKeystore.jks",
-                "pac4j-demo-passwd",
-                "pac4j-demo-passwd",
-                "resource:testshib-providers.xml");
-        cfg.setMaximumAuthenticationLifetime(3600);
-        cfg.setServiceProviderEntityId("http://localhost:8080/callback?client_name=SAML2Client");
-        cfg.setServiceProviderMetadataPath(new File("sp-metadata.xml").getAbsolutePath());
-        final SAML2Client saml2Client = new SAML2Client(cfg);*/
-
-		/*
-		 * final FacebookClient facebookClient = new FacebookClient("145278422258960",
-		 * "be21409ba8f39b5dae2a7de525484da8"); facebookClient.setScope(
-		 * "user_likes,user_birthday,email,user_hometown,user_location"); final
-		 * TwitterClient twitterClient = new TwitterClient("CoxUiYwQOSFDReZYdjigBA",
-		 * "2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs"); // HTTP final
-		 * IndirectBasicAuthClient indirectBasicAuthClient = new
-		 * IndirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
-		 * 
-		 * // CAS final CasConfiguration configuration = new
-		 * CasConfiguration("https://casserverpac4j.herokuapp.com/login"); //final
-		 * CasConfiguration configuration = new
-		 * CasConfiguration("http://localhost:8888/cas/login"); final CasProxyReceptor
-		 * casProxy = new CasProxyReceptor();
-		 * //configuration.setProxyReceptor(casProxy); final CasClient casClient = new
-		 * CasClient(configuration);
-		 * 
-		 * // REST authent with JWT for a token passed in the url as the token parameter
-		 * final List<SignatureConfiguration> signatures = new ArrayList<>();
-		 * signatures.add(new SecretSignatureConfiguration(JWT_SALT)); ParameterClient
-		 * parameterClient = new ParameterClient("token", new
-		 * JwtAuthenticator(signatures)); parameterClient.setSupportGetRequest(true);
-		 * parameterClient.setSupportPostRequest(false);
-		 * 
-		 * // basic auth final DirectBasicAuthClient directBasicAuthClient = new
-		 * DirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
-		 */
-        
+       //final GoogleOidcClient oidcClient = new GoogleOidcClient(oidcConfiguration);
+      // create the client 
+       final OidcClient oidcClient = new CustomOidcClient(oidcConfiguration);
+      	
+       // register the client        
         final Clients clients = new Clients(
                 "http://localhost:8080/callback",
                 oidcClient               
@@ -108,6 +73,7 @@ public class SecurityConfig {
         config.addAuthorizer("mustBeAnon", new IsAnonymousAuthorizer<>("/?mustBeAnon"));
         config.addAuthorizer("mustBeAuth", new IsAuthenticatedAuthorizer<>("/?mustBeAuth"));
         config.addMatcher("excludedPath", new PathMatcher().excludeRegex("^/facebook/notprotected\\.action$"));
+        //config.
         return config;
     }
 }
