@@ -51,15 +51,21 @@ public class SecurityConfig {
         //oidcConfiguration.setSecret("MhMme_Ik6IH2JMnAT6MFIfee");
         oidcConfiguration.setClientId("980910461423-qvogk679mh5mm86teo4chjk8rqurut53.apps.googleusercontent.com");
         oidcConfiguration.setSecret("hPMqqMVbjhU5G8jsDWPKcGSH");
-        
+        oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
         oidcConfiguration.setUseNonce(true);
         
-        
-        //oidcClient.setPreferredJwsAlgorithm(JWSAlgorithm.RS256);
         oidcConfiguration.addCustomParam("prompt", "consent");
        //final GoogleOidcClient oidcClient = new GoogleOidcClient(oidcConfiguration);
       // create the client 
-       final OidcClient oidcClient = new CustomOidcClient(oidcConfiguration);
+       final OidcClient oidcClient = new OidcClient(oidcConfiguration);
+       oidcClient.setLogoutActionBuilder(new LogoutActionBuilder() {
+		@Override
+		public RedirectionAction getLogoutAction(WebContext context, UserProfile currentProfile, String targetUrl) {
+			 final String redirectUrl = "https://accounts.google.com/Logout";
+		        logger.debug("redirectUrl: {}", redirectUrl);
+		        return new FoundAction(redirectUrl);
+		}
+	});
       	
        // register the client        
         final Clients clients = new Clients(

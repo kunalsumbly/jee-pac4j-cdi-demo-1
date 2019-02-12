@@ -53,7 +53,7 @@ public class WebConfig {
 
 
        // final SecurityFilter oidcFilter = new SecurityFilter(config, "GoogleOidcClient", "securityHeaders");
-        final SecurityFilter oidcFilter = new SecurityFilter(config, "CustomOidcClient", "securityHeaders");
+        final SecurityFilter oidcFilter = new SecurityFilter(config, "OidcClient", "securityHeaders");
         filterHelper.addFilterMapping("oidcFilter", oidcFilter, "/oidc/*");
 
         final ForceLoginFilter forceLoginFilter = new ForceLoginFilter();
