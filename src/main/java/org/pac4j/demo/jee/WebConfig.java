@@ -40,11 +40,16 @@ public class WebConfig {
         System.out.println("building Web configuration..");
         final FilterHelper filterHelper = new FilterHelper(servletContext);
 
-        final SecurityFilter indexFilter = new SecurityFilter(config, "AnonymousClient", "securityHeaders");
-        filterHelper.addFilterMapping("indexFilter", indexFilter, "/");
-
-        final SecurityFilter mustBeAnonFilter = new SecurityFilter(config, "AnonymousClient", "mustBeAnon");
-        filterHelper.addFilterMapping("mustBeAnonFilter", mustBeAnonFilter, "/loginForm.action");
+		/*
+		 * final SecurityFilter indexFilter = new SecurityFilter(config,
+		 * "AnonymousClient", "securityHeaders");
+		 * filterHelper.addFilterMapping("indexFilter", indexFilter, "/");
+		 * 
+		 * final SecurityFilter mustBeAnonFilter = new SecurityFilter(config,
+		 * "AnonymousClient", "mustBeAnon");
+		 * filterHelper.addFilterMapping("mustBeAnonFilter", mustBeAnonFilter,
+		 * "/loginForm.action");
+		 */
 
         final CallbackFilter callbackFilter = new CallbackFilter(config, "/");
         callbackFilter.setRenewSession(true);
@@ -56,23 +61,32 @@ public class WebConfig {
         final SecurityFilter oidcFilter = new SecurityFilter(config, "OidcClient", "securityHeaders");
         filterHelper.addFilterMapping("oidcFilter", oidcFilter, "/oidc/*");
 
-        final ForceLoginFilter forceLoginFilter = new ForceLoginFilter();
-        filterHelper.addFilterMapping("forceLoginFilter", forceLoginFilter, "/forceLogin");
+		/*
+		 * final ForceLoginFilter forceLoginFilter = new ForceLoginFilter();
+		 * filterHelper.addFilterMapping("forceLoginFilter", forceLoginFilter,
+		 * "/forceLogin");
+		 */
 
 
         final SecurityFilter protectedFilter = new SecurityFilter(config, null, "securityHeaders");
         filterHelper.addFilterMapping("protectedFilter", protectedFilter, "/protected/*");
 
 
-        final SecurityFilter formFilter = new SecurityFilter(config, "FormClient", "securityHeaders");
-        filterHelper.addFilterMapping("formFilter", formFilter, "/form/*");
-
-        final SecurityFilter jsfFormFilter = new SecurityFilter(config, "jsfFormClient", "securityHeaders");
-        filterHelper.addFilterMapping("jsfFormFilter", jsfFormFilter, "/jsfform/*");
-
-		
-        final SecurityFilter mustBeAuthFilter = new SecurityFilter(config, "AnonymousClient", "mustBeAuth");
-        filterHelper.addFilterMapping("mustBeAuthFilter", mustBeAuthFilter, "/logout");
+		/*
+		 * final SecurityFilter formFilter = new SecurityFilter(config, "FormClient",
+		 * "securityHeaders"); filterHelper.addFilterMapping("formFilter", formFilter,
+		 * "/form/*");
+		 * 
+		 * final SecurityFilter jsfFormFilter = new SecurityFilter(config,
+		 * "jsfFormClient", "securityHeaders");
+		 * filterHelper.addFilterMapping("jsfFormFilter", jsfFormFilter, "/jsfform/*");
+		 * 
+		 * 
+		 * final SecurityFilter mustBeAuthFilter = new SecurityFilter(config,
+		 * "AnonymousClient", "mustBeAuth");
+		 * filterHelper.addFilterMapping("mustBeAuthFilter", mustBeAuthFilter,
+		 * "/logout");
+		 */
 
         final LogoutFilter logoutFilter = new LogoutFilter(config, "/?defaulturlafterlogout");
         logoutFilter.setDestroySession(true);
